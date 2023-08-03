@@ -35,7 +35,7 @@ const Table = ({ setShowModal, setExpenseId }: Props) => {
   }, [expenses]);
 
   return (
-    <Box sx={{ width: "100%" }}>
+    <Box sx={{ width: "50.5rem" }}>
       <DataGrid
         rows={formattedExpenses}
         columns={TableColumns({ setExpenseId, setShowModal })}

@@ -76,7 +76,7 @@ const TableColumns = ({ setExpenseId, setShowModal }: Props) => {
       width: 100,
       headerAlign: "center",
       headerClassName: "table-header",
-      cellClassName: "table-cell",
+      cellClassName: "table-cell-icons",
       renderCell: (params: GridCellParams) => (
         <Box onClick={() => handleTrashClick(params)}>
           <BsFillTrashFill size={20} />

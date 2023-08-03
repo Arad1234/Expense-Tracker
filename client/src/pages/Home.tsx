@@ -8,6 +8,7 @@ import Loader from "../components/Home-UI/Loader";
 import DeleteExpenseModal from "../components/Home-UI/Modals/DeleteExpenseModal/DeleteExpenseModal";
 import UpdateExpenseModal from "../components/Home-UI/Modals/UpdateExpenseModal/UpdateExpenseModal";
 
+// Expenses Context
 export const expensesContext = createContext<ExpensesContextType>({
   expenses: [],
   setExpenses() {},
@@ -46,6 +47,7 @@ const Home = () => {
         setLoading(false);
       } catch (error: any) {
         console.log(error);
+        setLoading(false);
       }
     };
 
@@ -55,6 +57,7 @@ const Home = () => {
   if (loading) {
     return <Loader />;
   }
+
   return (
     <expensesContext.Provider
       value={{
@@ -71,16 +74,19 @@ const Home = () => {
       }}
     >
       <AddNewExpenseButton setShowModal={setShowModal} />
+
       <Table
         setShowModal={setShowModal}
         setExpenseId={setExpenseId}
       />
+
       {showModal.modalStatus === "addExpense" && (
         <AddExpenseModal
           setShowModal={setShowModal}
           isOpen={showModal.isOpen}
         />
       )}
+
       {showModal.modalStatus === "deleteExpense" && (
         <DeleteExpenseModal
           setShowModal={setShowModal}
