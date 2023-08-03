@@ -26,7 +26,6 @@ const TableColumns = ({ setExpenseId, setShowModal }: Props) => {
   const handlePencilClick = (
     e: GridCellParams<any, unknown, unknown, GridTreeNode>
   ) => {
-    console.log(e);
     setExpenseId(e.id.toString());
     setShowModal({ isOpen: true, modalStatus: "updateExpense" });
     setCategory(e.row.category);

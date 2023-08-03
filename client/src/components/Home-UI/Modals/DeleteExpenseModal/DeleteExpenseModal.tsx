@@ -26,7 +26,7 @@ const DeleteExpenseModal = ({ isOpen, setShowModal, expenseId }: Props) => {
       );
       setShowModal({ isOpen: false, modalStatus: "" });
     } catch (error: any) {
-      console.log(error.message);
+      console.log(error);
     }
   };
   const handleCancel = () => {

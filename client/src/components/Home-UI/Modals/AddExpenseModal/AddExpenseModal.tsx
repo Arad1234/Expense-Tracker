@@ -41,7 +41,7 @@ const AddExpenseModal = ({ isOpen, setShowModal }: Props) => {
       setExpenses([...expenses, data.newExpense]);
       setShowModal({ isOpen: false, modalStatus: "" });
     } catch (error: any) {
-      console.log(error.message);
+      console.log(error);
     }
   };
 

@@ -33,8 +33,6 @@ const ModalInputs = ({
     setDate(e.target.value);
   };
   const handleCategoryChange = (e: SelectChangeEvent<Category>) => {
-    console.log(e.target.value);
-
     setCategory(e.target.value as Category);
   };
   const handleTotalChange = (e: InputChangeEvent) => {

@@ -11,8 +11,12 @@ export default class ExpenseService {
   }
 
   async addExpense(expenseData: ExpenseData) {
-    const newExpense = await this.expenseModel.create(expenseData);
-    return newExpense;
+    try {
+      const newExpense = await this.expenseModel.create(expenseData);
+      return newExpense;
+    } catch (error: any) {
+      throw new Error(error);
+    }
   }
 
   getExpenses() {
@@ -20,22 +24,33 @@ export default class ExpenseService {
   }
 
   async deleteExpense(expenseId: string) {
-    const expenseToDelete = await this.expenseModel.findOne({ _id: expenseId });
-    await expenseToDelete.deleteOne();
-    return "Deleted!";
+    try {
+      const expenseToDelete = await this.expenseModel.findOne({
+        _id: expenseId,
+      });
+      await expenseToDelete.deleteOne();
+      return "Deleted!";
+    } catch (error: any) {
+      throw new Error(error);
+    }
   }
 
   async updateExpense(expenseId: string, expenseData: ExpenseData) {
     const { date, category, notes, total } = expenseData;
-    console.log(date, category, notes, total);
-    const updatedExpense = await this.expenseModel.findOne({ _id: expenseId });
-    updatedExpense.date = date;
-    updatedExpense.category = category;
-    updatedExpense.notes = notes;
-    updatedExpense.total = total;
+    try {
+      const updatedExpense = await this.expenseModel.findOne({
+        _id: expenseId,
+      });
 
-    await updatedExpense.save();
-    console.log(updatedExpense);
-    return updatedExpense;
+      updatedExpense.date = date;
+      updatedExpense.category = category;
+      updatedExpense.notes = notes;
+      updatedExpense.total = total;
+
+      await updatedExpense.save();
+      return updatedExpense;
+    } catch (error: any) {
+      throw new Error(error);
+    }
   }
 }

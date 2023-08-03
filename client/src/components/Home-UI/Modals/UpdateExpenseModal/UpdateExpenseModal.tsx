@@ -36,7 +36,6 @@ const UpdateExpenseModal = ({ setShowModal, isOpen, expenseId }: Props) => {
         notes,
         total,
       });
-      console.log(response);
 
       const { data } = response;
       setExpenses(
@@ -53,7 +52,7 @@ const UpdateExpenseModal = ({ setShowModal, isOpen, expenseId }: Props) => {
         setTotal(null),
         setShowModal({ isOpen: false, modalStatus: "" });
     } catch (error: any) {
-      console.log(error.message);
+      console.log(error);
     }
   };
   return (

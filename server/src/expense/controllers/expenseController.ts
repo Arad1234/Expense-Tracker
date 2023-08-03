@@ -1,4 +1,4 @@
-import { Router, Request, Response } from "express";
+import { Router, Request, Response, NextFunction } from "express";
 import { injectable, inject } from "tsyringe";
 import ExpenseService from "../services/expenseService";
 import { ExpenseData } from "../types/mongoose";
@@ -17,7 +17,6 @@ export default class ExpenseController {
   getExpensesRoute() {
     return this.expenseService.getExpenses();
   }
-
   postExpenseRoute(expenseData: ExpenseData) {
     return this.expenseService.addExpense(expenseData);
   }
@@ -29,33 +28,55 @@ export default class ExpenseController {
   }
 
   routes() {
-    this.router.get("/expense", async (req: Request, res: Response) => {
-      const expenses = await this.getExpensesRoute();
-      res.status(OK).send(expenses);
-    });
+    this.router.get(
+      "/expense",
+      async (req: Request, res: Response, next: NextFunction) => {
+        try {
+          const expenses = await this.getExpensesRoute();
+          res.status(OK).send(expenses);
+        } catch (error) {
+          next(error);
+        }
+      }
+    );
 
-    this.router.post("/create-expense", async (req: Request, res: Response) => {
-      const expense = await this.postExpenseRoute(req.body);
-      res.status(CREATED).json({ status: "Created!", newExpense: expense });
-    });
+    this.router.post(
+      "/create-expense",
+      async (req: Request, res: Response, next: NextFunction) => {
+        try {
+          const expense = await this.postExpenseRoute(req.body);
+          res.status(CREATED).json({ status: "Created!", newExpense: expense });
+        } catch (error) {
+          next(error);
+        }
+      }
+    );
 
-    this.router.delete("/delete-expense/:id", (req: Request, res: Response) => {
-      console.log(req.params);
-      const { id } = req.params;
-      this.deleteExpenseRoute(id);
-      res.status(OK).json({ status: "Deleted!", deletedExpenseId: id });
-    });
+    this.router.delete(
+      "/delete-expense/:id",
+      async (req: Request, res: Response, next: NextFunction) => {
+        try {
+          const { id } = req.params;
+          await this.deleteExpenseRoute(id);
+          res.status(OK).json({ status: "Deleted!", deletedExpenseId: id });
+        } catch (error) {
+          next(error);
+        }
+      }
+    );
 
     this.router.put(
       "/edit-expense/:id",
-      async (req: Request, res: Response) => {
+      async (req: Request, res: Response, next: NextFunction) => {
         const { id } = req.params;
-
-        const updatedExpense = await this.updateExpenseRoute(id, req.body);
-        console.log(updatedExpense);
-        res
-          .status(OK)
-          .json({ status: "Updated!", updatedExpense: updatedExpense });
+        try {
+          const updatedExpense = await this.updateExpenseRoute(id, req.body);
+          res
+            .status(OK)
+            .json({ status: "Updated!", updatedExpense: updatedExpense });
+        } catch (error) {
+          next(error);
+        }
       }
     );
     return this.router;

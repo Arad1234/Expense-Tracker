@@ -45,7 +45,7 @@ const Home = () => {
         setExpenses(allExpenses);
         setLoading(false);
       } catch (error: any) {
-        console.log(error.message);
+        console.log(error);
       }
     };
 
