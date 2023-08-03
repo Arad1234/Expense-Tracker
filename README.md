@@ -62,7 +62,7 @@ For the frontend:
 
 ```bash
 cd client
-npm start
+npm run dev
 ```
 
 For the backend:
