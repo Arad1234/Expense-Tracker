@@ -6,9 +6,13 @@ import { injectable } from "tsyringe";
 export default class ExpenseModel implements ModelI {
   schema: Schema<any> = new Schema(
     {
-      date: { type: Date },
-      category: { type: String, enum: ["sports", "toys", "food"] },
-      total: { type: Number },
+      date: { type: Date, required: true },
+      category: {
+        type: String,
+        enum: ["sports", "toys", "food"],
+        required: true,
+      },
+      total: { type: Number, required: true },
       notes: { type: String },
     },
     { versionKey: false }
