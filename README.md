@@ -22,7 +22,7 @@ An app for tracking and managing your daily expenses. Built using modern technol
 **1. Clone the repository**
 
 ```bash
-git clone https://github.com/Arad1234/home-assignment.git
+git clone https://github.com/Arad1234/Expense-Tracker.git
 ```
 
 **2. Navigate into the directory**
