@@ -52,7 +52,7 @@ npm install
 Create a `.env` file in your server directory and add the following:
 
 ```bash
-JWT_SECRET=your_secret_key
+SECRET_KEY=your_secret_key
 MONGODB_URI=your_mongodb_uri
 ```
 
